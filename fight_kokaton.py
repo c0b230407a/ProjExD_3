@@ -7,7 +7,7 @@ import pygame as pg
 
 WIDTH = 1600  # ゲームウィンドウの幅
 HEIGHT = 900  # ゲームウィンドウの高さ
-NUM_OF_BOMBS=5
+NUM_OF_BOMBS=5 #もとの個数に新たな爆弾5個追加
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 BOMB10=5
 
@@ -146,6 +146,10 @@ def main():
     screen = pg.display.set_mode((WIDTH, HEIGHT))    
     bg_img = pg.image.load("fig/pg_bg.jpg")
     bird = Bird((900, 400))
+    """
+    bomberの定義
+    """
+
     bomber = [Bomb((255, 0, 0), 10) for _ in range(BOMB10)]
     bombs=[Bomb((255, 0, 0), 10) for _ in range(NUM_OF_BOMBS)]
     beam = None
@@ -186,6 +190,10 @@ def main():
             bomb.update(screen)
         if beam is not None:
             beam.update(screen)
+
+        """
+        キーボードによって爆弾のリストに新たな爆弾の個数を合併っさせて5→10にする
+        """
         if key_lst[pg.K_0]:
             bombs+=(bomber)
 
