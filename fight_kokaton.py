@@ -137,20 +137,28 @@ class Beam:
 
 
 
-
-
-
-
+class score:
+    def __init__(self):
+        self.font = pg.font.SysFont("hgp創英角ポップ体",30)
+        color=0,0,255
+        score=0
+        self.img = self.font.render("表示させる文字列",0,color)
+        txt_rct=100,HEIGHT-50
+    def update(self):
+        font1=self.font
+        txt1=self.img
+        screen.blit(txt1,True,color)
 def main():
     pg.display.set_caption("たたかえ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))    
     bg_img = pg.image.load("fig/pg_bg.jpg")
     bird = Bird((900, 400))
-
+    
     bombs=[Bomb((255, 0, 0), 10) for _ in range(NUM_OF_BOMBS)]
     beam = None
     clock = pg.time.Clock()
     tmr = 0
+
     
     while True:
         for event in pg.event.get():
@@ -158,6 +166,8 @@ def main():
                 return
             if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
                 beam = Beam(bird)
+
+
         screen.blit(bg_img, [0, 0])
         
         
