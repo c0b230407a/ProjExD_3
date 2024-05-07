@@ -149,6 +149,7 @@ def main():
     beam = None
     clock = pg.time.Clock()
     tmr = 0
+    
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -161,8 +162,11 @@ def main():
             if bird.rct.colliderect(bomb.rct):
                 # ゲームオーバー時に，こうかとん画像を切り替え，1秒間表示させる
                 bird.change_img(8, screen)
+                font = pg.font.Font(None,80)
+                txt = font.render("Game Over",True,(255,0,0))
+                screen.blit(txt,[WIDTH/2-150,HEIGHT/2])
                 pg.display.update()
-                time.sleep(1)
+                time.sleep(5)
                 return
         if not (beam is None or bomb is None):
             if beam.rct.colliderect(bomb.rct):  # ビームと爆弾が衝突したら
@@ -170,7 +174,7 @@ def main():
                 bomb = None
                 bird.change_img(6, screen)
                 pg.display.update()
-
+        
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
         if bomb is not None:
@@ -180,8 +184,7 @@ def main():
         pg.display.update()
         tmr += 1
         clock.tick(50)
-
-
+        
 
 if __name__ == "__main__":
     pg.init()
