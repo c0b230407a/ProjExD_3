@@ -9,7 +9,7 @@ WIDTH = 1600  # ゲームウィンドウの幅
 HEIGHT = 900  # ゲームウィンドウの高さ
 NUM_OF_BOMBS=5
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-
+BOMB10=5
 
 def check_bound(obj_rct: pg.Rect) -> tuple[bool, bool]:
     """
@@ -146,7 +146,7 @@ def main():
     screen = pg.display.set_mode((WIDTH, HEIGHT))    
     bg_img = pg.image.load("fig/pg_bg.jpg")
     bird = Bird((900, 400))
-
+    bomber = [Bomb((255, 0, 0), 10) for _ in range(BOMB10)]
     bombs=[Bomb((255, 0, 0), 10) for _ in range(NUM_OF_BOMBS)]
     beam = None
     clock = pg.time.Clock()
@@ -179,13 +179,16 @@ def main():
                     bird.change_img(6, screen)
                     pg.display.update()
         bombs = [bomb for bomb in bombs if bomb is not None]
-        
+
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
         for bomb in bombs:
             bomb.update(screen)
         if beam is not None:
             beam.update(screen)
+        if key_lst[pg.K_0]:
+            bombs+=(bomber)
+
         pg.display.update()
         tmr += 1
         clock.tick(50)
